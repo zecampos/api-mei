@@ -1,5 +1,7 @@
 'use strict'
 const Usuario = use("App/Models/Usuario")
+const Database = use('Database')
+
 class UsuarioController {
 
   async index ({ request, response, view }) {
@@ -15,13 +17,18 @@ class UsuarioController {
 
   async store ({ request, response }) {
     try{
+
       const data = request.all()
-      const n = await Usuario.create({
-        ...data
-      })
-      return response.status(200).send(n)
+      let find = await Usuario.findBy({'cnpj': data.cnpj})
+      if (find){
+        return response.status(200).send(find)
+      }else {
+        let novo = await Usuario.create({...data})
+        return response.status(200).send(novo)
+      }
+
     }catch(e){
-      return  response.status(500).send({ msg: 'Erro' })
+      return  response.status(500).send({msf: e})
     }
   }
 

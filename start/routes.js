@@ -22,6 +22,7 @@ Route.get('/', () => {
 Route.post("/users", "UserController.create");
 Route.post("/sessions", "SessionController.store");
 Route.group(() => {
-  Route.resource('usuario', 'UsuarioController').apiOnly()
+  Route.resource('usuario', 'UsuarioController').apiOnly(),
+  Route.resource('solicitacao', 'SolicitacaoController').apiOnly()
 
 })

@@ -15,6 +15,7 @@ class UsuarioSchema extends Schema {
       table.string('situacao', 254)
       table.string('municipio', 254)
       table.string('fantasia', 254)
+      table.string('plano', 254).defaultTo('free')
       table.string('cnpj', 254).unique()
       table.timestamps()
     })

@@ -1,91 +1,42 @@
 'use strict'
-
-/** @typedef {import('@adonisjs/framework/src/Request')} Request */
-/** @typedef {import('@adonisjs/framework/src/Response')} Response */
-/** @typedef {import('@adonisjs/framework/src/View')} View */
-
-/**
- * Resourceful controller for interacting with usuarios
- */
+const Usuario = use("App/Models/Usuario")
 class UsuarioController {
-  /**
-   * Show a list of all usuarios.
-   * GET usuarios
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   * @param {View} ctx.view
-   */
+
   async index ({ request, response, view }) {
+    try{
+      const n = await Usuario.all()
+      return response.status(200).send(n)
+    }catch(e){
+      return  response.status(500).send({ msg: 'Erro' })
+    }
   }
 
-  /**
-   * Render a form to be used for creating a new usuario.
-   * GET usuarios/create
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   * @param {View} ctx.view
-   */
-  async create ({ request, response, view }) {
-  }
 
-  /**
-   * Create/save a new usuario.
-   * POST usuarios
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   */
+
   async store ({ request, response }) {
+    try{
+      const data = request.all()
+      const n = await Usuario.create({
+        ...data
+      })
+      return response.status(200).send(n)
+    }catch(e){
+      return  response.status(500).send({ msg: 'Erro' })
+    }
   }
 
-  /**
-   * Display a single usuario.
-   * GET usuarios/:id
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   * @param {View} ctx.view
-   */
+
   async show ({ params, request, response, view }) {
   }
 
-  /**
-   * Render a form to update an existing usuario.
-   * GET usuarios/:id/edit
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   * @param {View} ctx.view
-   */
+
   async edit ({ params, request, response, view }) {
   }
 
-  /**
-   * Update usuario details.
-   * PUT or PATCH usuarios/:id
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   */
+
   async update ({ params, request, response }) {
   }
 
-  /**
-   * Delete a usuario with id.
-   * DELETE usuarios/:id
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   */
   async destroy ({ params, request, response }) {
   }
 }
